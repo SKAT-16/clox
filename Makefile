@@ -3,7 +3,7 @@ CFlagsHard = --std=c99 -Wall -Werror -Wextra -pedantic-errors
 CFlags = --std=c99 -MMD
 
 # 1. Just list your object files here
-OBJS = build/main.o build/debug.o build/chunk.o build/value.o build/memory.o
+OBJS = build/main.o build/debug.o build/chunk.o build/value.o build/memory.o build/line.o
 
 bin/clox: $(OBJS)
 	@mkdir -p bin
