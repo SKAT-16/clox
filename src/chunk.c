@@ -58,7 +58,6 @@ int getLine(Chunk *chunk, int op_index) {
     int sum = 0;
     while (l != NULL) {
         sum += l->rep;
-        // printf("\nNum is: %d; Rep is: %d\n", l->num, l->rep);
         if (op_index + 1 <= sum)
             return l->num;
         l++;
