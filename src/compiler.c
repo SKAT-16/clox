@@ -19,6 +19,7 @@ typedef struct {
 typedef enum {
     PREC_NONE,
     PREC_ASSIGNMENT, // =
+    PREC_TERNARY,    // ?:
     PREC_OR,         // or
     PREC_AND,        // and
     PREC_EQUALITY,   // == !=
@@ -158,6 +159,12 @@ static void grouping() {
     consume(TOKEN_RIGHT_PAREN, "Expect ')' after expression.");
 }
 
+static void ternary() {
+    parsePrecedence(PREC_TERNARY);
+    consume(TOKEN_COLON, "Expect colon after first expression");
+    parsePrecedence(PREC_TERNARY);
+}
+
 static void number() {
     double value = strtod(parser.previous.start, NULL);
     emitConstant(value);
@@ -191,6 +198,8 @@ ParseRule rules[] = {
     [TOKEN_SEMICOLON] = {NULL, NULL, PREC_NONE},
     [TOKEN_SLASH] = {NULL, binary, PREC_FACTOR},
     [TOKEN_STAR] = {NULL, binary, PREC_FACTOR},
+    [TOKEN_QUESTION] = {NULL, ternary, PREC_TERNARY},
+    [TOKEN_COLON] = {NULL, NULL, PREC_NONE},
     [TOKEN_BANG] = {NULL, NULL, PREC_NONE},
     [TOKEN_BANG_EQUAL] = {NULL, NULL, PREC_NONE},
     [TOKEN_EQUAL] = {NULL, NULL, PREC_NONE},
