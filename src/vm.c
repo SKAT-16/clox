@@ -40,6 +40,8 @@ static void concatenate() {
     chars[length] = '\0';
 
     ObjString *result = takeString(chars, length);
+    FREE(char, chars);
+    
     push(OBJ_VAL(result));
 }
 
